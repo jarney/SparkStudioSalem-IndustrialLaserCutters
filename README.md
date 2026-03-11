@@ -1,34 +1,46 @@
 # Industrial 6090 150Watt CO2 Laser Cutters
 
-This repository collects information about the Industrial scale
-CO2 laser cutters at Spark Studios including policies, safety information,
-training materials and technical information such as wiring diagrams.
+This repository collects information about the Industrial
+scale CO2 laser cutters at Spark Studios including
+policies, safety information, training materials and technical
+information such as wiring diagrams.
 
 # Policies and procedures
 
-Before operating the laser cutters, please review the safety information
-and policies.  Training is required before operating the machines
-un-supervised.
+This section covers the policies and procedures for operating the machines.
+
+* Use of these machines is governed by the (Policies)[policies.pdf].
+* When running jobs, please follow the (Operations Checklist)[operation-checklist.pdf]
+* When running jobs, please fill out a sheet in the (Operation Log)(operation-log.pdf]
+* To achieve better surface finishes, please refer to the (Pro Tips)[pro-tips.pdf]
+* These Signs should be placed on the machines in event of malfunction to alert
+  other users and Spark Studio board members of malfunctions.
 
 # Technical Information
 
-This (operation manual)[Gweike-operation-manual.pdf] covers the use and operation of a similar laser cutter from Gweike.  While
-the laser cutters are not exactly this model, they do give useful guidance on the machines
-and their operation.
+This section contains technical information for maintenance and
+diagnosis of problems.  These are indended only for those tasked
+specifically with maintaining and repairing the machines.  These
+should not be used during normal operation.
 
-The 6090 laser cutters are built using a Ruida controller which interprets the GCode
-to guide the machine through making cuts.  The (Ruida controller's documentation)[RDC6445G-Control-System-V1.2-Manual.pdf] describes
-more about its design and usage.
+This (operation manual)[Gweike-operation-manual.pdf] covers
+the use and operation of a similar laser cutter from Gweike.
+While the laser cutters are not exactly this model, they
+do give useful guidance on the machines and their operation.
 
-In addition, the (laser power supply has accompanying documentation)[LASERPOWERSUPPLY欧规_1729590679720.pdf] about its inputs and controls.
+The 6090 laser cutters are built using a Ruida controller
+which interprets the GCode to guide the machine through making
+cuts.  The (Ruida controller's documentation)[RDC6445G-Control-System-V1.2-Manual.pdf]
+describes more about its design and usage.
 
-This (wiring diagram)[LaserCutterCurrentWiring-Current.pdf] is available for helping to understand
-the design of the machines and general troubleshooting.  This diagram was produced
-by reverse-engineering the design and is not authoritative, but is
-as accurate as possible a diagram describing the wiring of the machine
-based on its current configuration which has been slightly altered from
-its original design.
+In addition, the (laser power supply has accompanying documentation)[LASERPOWERSUPPLY欧规_1729590679720.pdf]
+about its inputs and controls.
 
-# Alignment and maintenance procedures
+This (wiring diagram)[laser-block-diagram.pdf] is
+available for helping to understand the design of the
+machines and general troubleshooting.  This diagram was produced
+by reverse-engineering the design and is not authoritative,
+but is as accurate as possible a diagram describing the wiring
+of the machine based on its current configuration which has
+been slightly altered from its original design.
 
-# SparkStudioSalem-IndustrialLaserCutters
