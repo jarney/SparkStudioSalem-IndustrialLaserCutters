@@ -16,6 +16,9 @@ This section covers the policies and procedures for operating the machines.
 * These Signs should be placed on the machines in event of malfunction to alert
   other users and Spark Studio board members of malfunctions.
 
+If you wish th revise the policies, please edit the corresponding
+OpenOffice (.odt) files and review with the Spark Studio Board.
+
 # Technical Information
 
 This section contains technical information for maintenance and
@@ -36,11 +39,28 @@ describes more about its design and usage.
 In addition, the [laser power supply has accompanying documentation](LASERPOWERSUPPLY欧规_1729590679720.pdf)
 about its inputs and controls.
 
-This [wiring diagram](laser-block-diagram.pdf] is
+This [wiring diagram](laser-block-diagram.pdf) is
 available for helping to understand the design of the
 machines and general troubleshooting.  This diagram was produced
 by reverse-engineering the design and is not authoritative,
 but is as accurate as possible a diagram describing the wiring
 of the machine based on its current configuration which has
-been slightly altered from its original design.
+been slightly altered from its original design.  The diagram is
+authored in KiCad and future changes should be proposed and updated
+using this format, reviewed, and implemented with the consent of
+a Certifier or the Spark Studio Board.
 
+# Modified Parts
+
+Some parts have been designed and 3d printed in an effort to
+improve the safety of the equipment.  These include:
+
+* Spacers/stand-offs to hold a panel to prevent laser light from coming
+  through the vent holes.
+  
+* Plugs for circular holes in front of Blue laser cutter.
+
+* Holder for reed switch protecting the laser from firing with
+  the door open.
+
+The CAD for these files are maintained in this [FreeCAD file](LaserCutterParts.FCStd).
