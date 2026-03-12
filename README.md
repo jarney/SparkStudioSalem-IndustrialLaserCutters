@@ -18,6 +18,10 @@ This section covers the policies and procedures for operating the machines.
 
 If you wish th revise the policies, please edit the corresponding
 OpenOffice (.odt) files and review with the Spark Studio Board.
+Once approved, a pull-request can be sent to request that the official
+copies of the policies be updated.  Note when revising policies, the
+revision number and date MUST be updated in order to keep track
+of which policy revision is the most recent.
 
 # Technical Information
 
