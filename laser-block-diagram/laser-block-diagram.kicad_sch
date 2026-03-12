@@ -1649,8 +1649,8 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 5924a34f-60fe-4606-a3d7-e4b6ad22196d)
   )
-  (text "Propose to wire door\nswitch in series with\nwater-protect switch\ndirectly to laser input."
-    (at 30.48 200.66 0)
+  (text "Door reed switch in series\nwith water-protect switch\non laser power protect pin."
+    (at 26.67 198.12 0)
     (effects (font (size 1.27 1.27) (thickness 0.254) bold (color 142 2 0 1)) (justify left bottom))
     (uuid 76a76cc2-e798-4e6a-978f-9610a7085646)
   )
@@ -1692,7 +1692,7 @@
     (pin "3" (uuid 81cca202-746d-411e-9310-b9b7b8930532))
     (pin "4" (uuid 725cef66-aaf9-4cc6-af19-6044e66be3af))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "STEPPERY") (unit 1)
         )
@@ -1718,7 +1718,7 @@
     (pin "2" (uuid a34eef95-43b3-4731-af1d-b91496ce58f7))
     (pin "1" (uuid e4d20c8f-116a-4fcd-a6e3-6195c1d1af26))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "TOGGLE-CTL") (unit 1)
         )
@@ -1744,7 +1744,7 @@
     (pin "" (uuid b3d7e29d-8d0a-48e1-bbf4-98847be4646d))
     (pin "" (uuid 088165b6-54b3-4c95-bd09-18e48766e6a6))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "U4") (unit 1)
         )
@@ -1771,7 +1771,7 @@
     (pin "2" (uuid a9078d48-dc2f-4c88-8ccd-4f7639b38525))
     (pin "1" (uuid dd4545ea-6e30-4eb8-934c-a310e68ecbe1))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "AIR") (unit 1)
         )
@@ -1796,7 +1796,7 @@
     )
     (pin "1" (uuid 76e14e4d-7ddc-4d4d-a9e3-495e85c39cce))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "#PWR01") (unit 1)
         )
@@ -1822,7 +1822,7 @@
     (pin "1" (uuid f43e7fc2-b34a-4863-8cab-7cd78c2bf55c))
     (pin "2" (uuid a242cfd4-6c4b-493a-a652-a0341f185508))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "SWXLIM") (unit 1)
         )
@@ -1857,7 +1857,7 @@
     (pin "" (uuid 913aef21-1f26-4b46-86e0-8f2a9e488e7f))
     (pin "" (uuid e372463b-851f-4f20-a9ff-3ca3f2da3beb))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "U1") (unit 1)
         )
@@ -1885,7 +1885,7 @@
     (pin "4" (uuid fc575dc9-4a56-433d-953b-83d65355fb3b))
     (pin "1" (uuid fdda05fb-c7eb-4037-b9ad-c91e62fa8bb7))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "STEPPERX") (unit 1)
         )
@@ -1957,7 +1957,7 @@
     (pin "1" (uuid ca98d165-25d4-43c1-a391-4257dad6eea1))
     (pin "2" (uuid 92e80ff3-2cdf-429e-8065-e52bb4075440))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "U2") (unit 1)
         )
@@ -1985,7 +1985,7 @@
     (pin "4" (uuid cab3c252-107f-4ded-9e5a-c6cfdaa89634))
     (pin "1" (uuid 49fa2477-29b9-433b-b488-0de516835e5b))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "Supply24V1") (unit 1)
         )
@@ -2011,7 +2011,7 @@
     (pin "2" (uuid 0d6f08fb-6de9-49d8-abe0-87a2db94c949))
     (pin "1" (uuid 89c1db36-1f54-487d-a141-bfa40bd8a959))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "SWYLIM") (unit 1)
         )
@@ -2037,7 +2037,7 @@
     (pin "2" (uuid 54522897-2e7a-4507-95ff-a9345629e132))
     (pin "1" (uuid aeafaa50-2ec3-4c1e-b057-19a1187f420a))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "TOGGLE-LASER") (unit 1)
         )
@@ -2073,7 +2073,7 @@
     (pin "1" (uuid cbeedce8-5441-477c-b40a-b4fac8bd1751))
     (pin "1" (uuid 47d004df-9f8d-4a43-a053-4d4092aaeba8))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "DRIVERX") (unit 1)
         )
@@ -2099,7 +2099,7 @@
     (pin "1" (uuid 796ed145-227c-431e-ad07-7b8583f7073f))
     (pin "2" (uuid 107f6b2e-0deb-4b5c-84bf-731c7eb555bf))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "F1") (unit 1)
         )
@@ -2126,7 +2126,7 @@
     (pin "1" (uuid 6bdb302f-38c1-4a27-8277-19cb84a69d03))
     (pin "3" (uuid 4e98a8a0-4c3f-4988-9b5f-ae93b1b65013))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "MAINS1") (unit 1)
         )
@@ -2152,7 +2152,7 @@
     (pin "2" (uuid f98e42ba-51c4-452c-8899-3a4129e38f55))
     (pin "1" (uuid f29bc1f6-dd44-435e-adf9-135b8c229ad0))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "TOGGLE-AIR") (unit 1)
         )
@@ -2188,7 +2188,7 @@
     (pin "1" (uuid 5b5cb75d-bd2e-475d-ad83-841c4b4007d1))
     (pin "2" (uuid 3694a194-6dad-4f1a-ab0d-74bf8c46b32d))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "DRIVERY") (unit 1)
         )
@@ -2213,7 +2213,7 @@
     )
     (pin "1" (uuid f0afb160-7fd2-4569-bddf-42e3f039a6f9))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "#PWR03") (unit 1)
         )
@@ -2239,7 +2239,7 @@
     (pin "2" (uuid 1683b230-04cb-45d8-998b-5f3108e35cb7))
     (pin "1" (uuid 8418c035-808e-4673-9f33-a88575492f95))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "SWDOOR") (unit 1)
         )
@@ -2269,7 +2269,7 @@
     (pin "1" (uuid 1654d17d-14ed-45c4-b0d5-54b985b3baf5))
     (pin "1" (uuid 136ba0b7-a318-4292-a426-9ecf8c7b8ad1))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "ESTOP1") (unit 1)
         )
@@ -2295,7 +2295,7 @@
     (pin "1" (uuid 61b31ed8-beab-4207-9b02-e40088e7b8eb))
     (pin "2" (uuid e6c1b6f6-eaaf-4a3c-a4d8-e982742cd4d5))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "KEYSW1") (unit 1)
         )
@@ -2321,7 +2321,7 @@
     (pin "" (uuid c6f3764e-d8ee-4cea-acf4-6601556e1e52))
     (pin "" (uuid 17ed08dc-f49e-41cf-8ee0-5b9e4a0803bb))
     (instances
-      (project "laser-block-diagram-desired"
+      (project "laser-block-diagram"
         (path "/519677db-cee6-463c-9dec-b4142abca24a"
           (reference "U3") (unit 1)
         )
