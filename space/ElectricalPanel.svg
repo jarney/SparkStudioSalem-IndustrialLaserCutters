@@ -27,8 +27,8 @@
      showguides="false"
      showgrid="true"
      inkscape:zoom="1.0000001"
-     inkscape:cx="332.49998"
-     inkscape:cy="324.99998"
+     inkscape:cx="274.49997"
+     inkscape:cy="483.99995"
      inkscape:window-width="1920"
      inkscape:window-height="995"
      inkscape:window-x="1920"
@@ -956,7 +956,7 @@
        id="rect33-4-6-6-1-2"
        width="6.3500032"
        height="6.3499985"
-       x="69.849998"
+       x="82.549995"
        y="85.724998" />
     <rect
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
@@ -1299,24 +1299,19 @@
     <text
        xml:space="preserve"
        style="font-size:3.48061px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.217538"
-       x="31.750002"
-       y="85.724998"
+       x="31.80891"
+       y="87.42205"
        id="text44-1-1"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.90051px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.217538"
-         x="31.750002"
-         y="85.724998"
-         id="tspan1"
-         sodipodi:role="line">Yellow Romex</tspan><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.90051px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.217538"
-         x="31.750002"
-         y="90.07576"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.217538"
+         x="31.80891"
+         y="87.42205"
          sodipodi:role="line"
-         id="tspan19">Unterminated</tspan><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.90051px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.217538"
-         x="31.750002"
-         y="94.426521"
+         id="tspan20">South Wall</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.217538"
+         x="31.80891"
+         y="92.713715"
          sodipodi:role="line"
-         id="tspan20">Leave OFF!</tspan></text>
+         id="tspan29">Plugs</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4.23333px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"

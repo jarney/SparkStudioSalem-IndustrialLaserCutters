@@ -25,15 +25,15 @@
      inkscape:document-units="in"
      showgrid="true"
      showguides="false"
-     inkscape:zoom="0.93507842"
-     inkscape:cx="528.83265"
-     inkscape:cy="605.29682"
+     inkscape:zoom="3.7403137"
+     inkscape:cx="400.50117"
+     inkscape:cy="664.65014"
      inkscape:window-width="1920"
      inkscape:window-height="995"
      inkscape:window-x="1920"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g26">
+     inkscape:current-layer="layer1">
     <inkscape:grid
        id="grid1"
        units="in"
@@ -160,6 +160,33 @@
            style="stroke-width:0.264583"
            x="238.125"
            y="133.34999">B27</tspan></text>
+    </g>
+    <g
+       id="g60-5"
+       inkscape:label="B9"
+       style="display:inline"
+       transform="translate(-111.12499,57.161713)">
+      <rect
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.499999;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="rect33-1-9-1-3"
+         width="3.175"
+         height="3.175"
+         x="244.47499"
+         y="130.16328"
+         ry="0"
+         inkscape:label="B9Location" />
+      <text
+         xml:space="preserve"
+         style="font-size:3.52777px;line-height:1.25;font-family:Sans;-inkscape-font-specification:'Sans, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+         x="238.1026"
+         y="132.78409"
+         id="text34-6-0-8-8"
+         inkscape:label="B9Label"><tspan
+           sodipodi:role="line"
+           id="tspan34-2-6-0-5"
+           style="stroke-width:0.264583"
+           x="238.1026"
+           y="132.78409">B9</tspan></text>
     </g>
     <g
        id="g58"
