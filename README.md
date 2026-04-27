@@ -5,6 +5,22 @@ scale CO2 laser cutters at Spark Studios including
 policies, safety information, training materials and technical
 information such as wiring diagrams.
 
+# Training Presentations
+If you want to learn how to use the machines, there are several
+presentations aimed at getting people started and certified:
+* [Introduction Training](Training-GeneralPublic.pdf): This course is intended for the general public
+  to use the machines UNDER SUPERVISION of authorized users.  The nominal cost
+  for this training is a $20 donation to the club.  You will learn to use the
+  machine for basic cutting and engraving operations.  This is an introduction, so you
+  will learn how to use the machines, but you will not yet be an expert.
+
+* [Authorized User Training](Training-AuthorizedUsers.pdf): This course is intended for paying members.  You will
+  increase your knowledge and the focus is on ensuring safe operation and reacting to emergency
+  conditions.  You will be allowed to use the machines unsupervised.
+
+* Certifier Training (coming soon):  This course is intended for advanced users.  You will learn
+  about the machine internals, alignment procedures, and more advanced topics.
+
 # Policies and procedures
 
 This section covers the policies and procedures for operating the machines.
