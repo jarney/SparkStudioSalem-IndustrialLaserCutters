@@ -4,3 +4,4 @@ obsolete
 *.bak
 network-topology-backups
 *~
+*.DS_Store
