@@ -2,6 +2,16 @@ console.log("Starting up, setting listener");
 
 window.addEventListener("load", initialize, false);
 
+function removeAllChildren(domElement) {
+    var toremove = []
+    for (child of domElement.children) {
+	toremove.push(child);
+    }
+    for (child of toremove) {
+	domElement.removeChild(child);
+    }
+}
+
 function globalBBox(element) {
     var rect_bbox = element.getBBox();
     var consolidated = element.transform.baseVal.consolidate();
@@ -16,8 +26,6 @@ function globalBBox(element) {
 	x1:  (rect_bbox.x + rect_bbox.width) * consolidated_matrix.a + (rect_bbox.y + rect_bbox.height) * consolidated_matrix.c + consolidated_matrix.e,
         y1: (rect_bbox.x + rect_bbox.width) * consolidated_matrix.b + (rect_bbox.y + rect_bbox.height) * consolidated_matrix.d + consolidated_matrix.f
     };
-//    console.log("Corners:");
-//    console.log(corners);
 
     var global_bbox = {
 	x: 0,
@@ -42,8 +50,6 @@ function globalBBox(element) {
 	global_bbox.y = corners.y1;
 	global_bbox.height = corners.y0 - corners.y1;
     }
-//    console.log("Calculated bounding box");
-//    console.log(global_bbox);
     return global_bbox;
 }
 
@@ -225,9 +231,6 @@ class TemplateSelect extends TemplateElement {
 	console.log("=============doing preview==========");
 	var child_list = svgElement.children;
 	var todelete = []
-	for (var child of child_list) {
-	    console.log("Label: " + child.getAttribute("inkscape:label") + ": " + child.getAttribute("style"));
-	}
 	for (var child of todelete) {
 	    svgElement.removeChild(child);
 	}
@@ -264,7 +267,6 @@ class TemplateHidden extends TemplateElement {
 	callback();
     }
     _filterPreview(svgElement) {
-	console.log("Removing hidden field " + this.id + ": " + this.name);
 	if (svgElement) {
 	    var parent = svgElement.parentElement;
 	    if (parent) {
@@ -291,16 +293,36 @@ class TemplateTextArea extends TemplateElement {
     }
     _formToSVG(htmlElement, svgElement, callback) {
 	var text_list = htmlElement.value.split(/\r?\n/);
-	var tspan_elements = svgElement.getElementsByTagName("tspan");
+
+	// This is just a reasonable default.
+	var lineHeight = 15;
+	
+	// If there are existing nodes, we get the
+	// span by calculating the existing difference
+	// between lines.
+	if (svgElement.children.length >= 2) {
+	    var y0 = svgElement.children[0].getAttribute("y");
+	    var y1 = svgElement.children[1].getAttribute("y");
+	    lineHeight = y1 - y0;
+	}
+	// Otherwise, we use the bounding-box as the line height.
+	else {
+	    lineHeight = svgElement.getBBox().height;
+	}
+	removeAllChildren(svgElement);
+
+	// This is the default position of the text spans.
+	var xpos = parseFloat(svgElement.getAttribute("x"));
+	var ypos = parseFloat(svgElement.getAttribute("y"));
+	
 	var i = 0;
-	for (var tspan_element of tspan_elements) {
-	    if (i < text_list.length) {
-		tspan_element.textContent = text_list[i];
-	    }
-	    else {
-		tspan_element.textContent = " ";
-	    }
-	    i = i + 1;
+	for (var text_content of text_list) {
+	    var newTSpan = svgDocument.createElementNS("http://www.w3.org/2000/svg", "tspan");
+	    newTSpan.setAttribute("x", "" + xpos);
+	    newTSpan.setAttribute("y", "" + (ypos + lineHeight * i));
+	    newTSpan.textContent = text_content;
+	    svgElement.appendChild(newTSpan);
+	    i++;
 	}
 	normalizeText(svgElement, this.name, false);
 	callback();
@@ -493,14 +515,8 @@ function copyPreviewSVG() {
     if (!previewDocument) {
 	return;
     }
-    
-    var toremove = []
-    for (child of previewDocument.documentElement.children) {
-	toremove.push(child);
-    }
-    for (child of toremove) {
-	previewDocument.documentElement.removeChild(child);
-    }
+
+    removeAllChildren(previewDocument.documentElement);
     
     console.log("outerhtml");
     for (child of svgDocument.documentElement.children) {
