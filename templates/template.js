@@ -335,7 +335,7 @@ class TemplateTextArea extends TemplateElement {
 	}
     }
     innerHTML() {
-	return "<textarea rows=\"10\" id=\"" + this.getId() + "\" type=\"text\" onchange=\"valuesChanged()\"></textarea>";
+	return "<textarea rows=\"4\" id=\"" + this.getId() + "\" type=\"text\" onchange=\"valuesChanged()\"></textarea>";
     }
 }
 
