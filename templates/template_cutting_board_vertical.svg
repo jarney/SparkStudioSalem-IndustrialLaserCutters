@@ -53,51 +53,51 @@
     /* Define the font family using web fonts */
     @font-face {
       font-family: &quot;Kaushan Script&quot;;
-      src: url(&quot;fonts/KaushanScript-Regular.ttf&quot;) format(&quot;truetype&quot;);
+      src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/KaushanScript-Regular.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;Analecta&quot;;
-        src: url(&quot;fonts/Analecta_hint.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/Analecta_hint.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;Anaktoria&quot;;
-        src: url(&quot;fonts/Anaktoria_hint.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/Anaktoria_hint.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;Akkadian&quot;;
-        src: url(&quot;fonts/Akkadian_hint.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/Akkadian_hint.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;DotGothic16&quot;;
-        src: url(&quot;fonts/DotGothic16-Regular.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/DotGothic16-Regular.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;Dyuthi&quot;;
-        src: url(&quot;fonts/Dyuthi-Regular.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/Dyuthi-Regular.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;Lobster Two&quot;;
-        src: url(&quot;fonts/LobsterTwo-Regular.otf&quot;) format(&quot;opentype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/LobsterTwo-Regular.otf&quot;) format(&quot;opentype&quot;);
     }
     @font-face {
         font-family: &quot;Purisa&quot;;
-        src: url(&quot;fonts/Purisa.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/Purisa.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;Uroob&quot;;
-        src: url(&quot;fonts/Uroob-Regular.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/Uroob-Regular.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;Z003&quot;;
-        src: url(&quot;fonts/Z003-MediumItalic.otf&quot;) format(&quot;opentype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/Z003-MediumItalic.otf&quot;) format(&quot;opentype&quot;);
     }
     @font-face {
         font-family: &quot;eufm10&quot;;
-        src: url(&quot;fonts/dsrom10.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/eufm10.ttf&quot;) format(&quot;truetype&quot;);
     }
     @font-face {
         font-family: &quot;dsrom10&quot;;
-        src: url(&quot;fonts/dsrom10.ttf&quot;) format(&quot;truetype&quot;);
+        src: url(&quot;https://jarney.github.io/spark/laser-cutters-6090/svg-templates/fonts/dsrom10.ttf&quot;) format(&quot;truetype&quot;);
     }
   </style>
   </sodipodi:namedview><defs
