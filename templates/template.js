@@ -2,6 +2,51 @@ console.log("Starting up, setting listener");
 
 window.addEventListener("load", initialize, false);
 
+function globalBBox(element) {
+    var rect_bbox = element.getBBox();
+    var consolidated = element.transform.baseVal.consolidate();
+    if (!consolidated) {
+	consolidated  = svgDocument.querySelector("svg").createSVGTransform();
+    }
+    var consolidated_matrix = consolidated.matrix;
+
+    var corners = {
+	x0: rect_bbox.x * consolidated_matrix.a + rect_bbox.y * consolidated_matrix.c + consolidated_matrix.e,
+	y0: rect_bbox.x * consolidated_matrix.b + rect_bbox.y * consolidated_matrix.d + consolidated_matrix.f,
+	x1:  (rect_bbox.x + rect_bbox.width) * consolidated_matrix.a + (rect_bbox.y + rect_bbox.height) * consolidated_matrix.c + consolidated_matrix.e,
+        y1: (rect_bbox.x + rect_bbox.width) * consolidated_matrix.b + (rect_bbox.y + rect_bbox.height) * consolidated_matrix.d + consolidated_matrix.f
+    };
+//    console.log("Corners:");
+//    console.log(corners);
+
+    var global_bbox = {
+	x: 0,
+	y: 0,
+	width: 0,
+	height: 0
+    };
+    
+    if (corners.x1 > corners.x0) {
+	global_bbox.x = corners.x0;
+	global_bbox.width = corners.x1 - corners.x0;
+    }
+    else {
+	global_bbox.x = corners.x1;
+	global_bbox.width = corners.x0 - corners.x1;
+    }
+    if (corners.y1 > corners.y0) {
+	global_bbox.y = corners.y0;
+	global_bbox.height = corners.y1 - corners.y0;
+    }
+    else {
+	global_bbox.y = corners.y1;
+	global_bbox.height = corners.y0 - corners.y1;
+    }
+//    console.log("Calculated bounding box");
+//    console.log(global_bbox);
+    return global_bbox;
+}
+
 /**
  * Utility function to normalize a text element
  * size to fit in a given rectangle.  Used by
@@ -16,50 +61,46 @@ function normalizeText(svgElement, elementName, changeY) {
     // All of this is to center the text in the given rectangle.
     var rectElement = rectElements[0];
     
-    var rectx = parseFloat(rectElement.getAttribute("x"));
-    var recty = parseFloat(rectElement.getAttribute("y"));
-    var rectwidth = parseFloat(rectElement.getAttribute("width"));
-    var rectheight = parseFloat(rectElement.getAttribute("height"));
-    
-    var text_bbox = svgElement.getBBox();
-    
-    var textx = parseFloat(svgElement.getAttribute("x"));
-    var texty = parseFloat(svgElement.getAttribute("y"));
-    
-    if (text_bbox.width == 0 || text_bbox.height == 0) return;
-    
-    var widthTransform = (rectwidth * 0.9) / text_bbox.width;
-    var heightTransform = (rectheight * 0.9) / text_bbox.height;
-    var scale = widthTransform < heightTransform ? widthTransform : heightTransform;
-    
-    const svgScale = svgDocument.querySelector("svg").createSVGTransform();
-    var consolidated_before = svgElement.transform.baseVal.consolidate();
-    if (consolidated_before == null) {
-	consolidated_before = svgDocument.querySelector("svg").createSVGTransform();
-    }
+    // We need the bounding boxes to be calculated
+    // in terms of global coordinates for both elements.
+    var rect_bbox = globalBBox(rectElement);
+    var text_bbox = globalBBox(svgElement);
 
-    if (changeY) {
-	svgScale.setScale(scale/consolidated_before.matrix.a, scale/consolidated_before.matrix.a);
-    }
-    else {
-	svgScale.setScale(scale/consolidated_before.matrix.a, 1);
-    }
-    svgElement.transform.baseVal.appendItem(svgScale);
-    
-    var consolidated = svgElement.transform.baseVal.consolidate();
-    
-    svgElement.setAttribute("x", textx*consolidated_before.matrix.a/consolidated.matrix.a);
-    if (changeY) {
-	svgElement.setAttribute("y", texty*consolidated_before.matrix.a/consolidated.matrix.a);
-    
-	svgElement.setAttribute("transform", "matrix(" +
-			    consolidated.matrix.a + "," +
-			    consolidated.matrix.b + "," +
-			    consolidated.matrix.c + "," +
-			    consolidated.matrix.d + "," +
-			    consolidated.matrix.e + "," +
-			    consolidated.matrix.f + ")");
-    }
+    // Next, we need to determine how much
+    // we should scale by in order to fit exactly
+    // inside the given rectangle while keeping
+    // the aspect ratio, so we will either need to
+    // scale according to the width or height depending on
+    // which one would overflow.
+    var widthTransform = rect_bbox.width / text_bbox.width;
+    var heightTransform = rect_bbox.height / text_bbox.height;
+    var scale = widthTransform < heightTransform ? widthTransform : heightTransform;
+
+    // Next, find the center point of the text.  This is
+    // because we want to move the center of the text to
+    // the origin before scaling it.
+    var cx = text_bbox.x + text_bbox.width/2;
+    var cy = text_bbox.y + text_bbox.height/2;
+
+    // Then we find the center point of the rectangle
+    // so we can move the text to fit inside the box.
+    var cbx = rect_bbox.x + rect_bbox.width/2;
+    var cby = rect_bbox.y + rect_bbox.height/2;
+
+    // Move text to origin
+    const doTranslate1 = svgDocument.querySelector("svg").createSVGTransform();
+    doTranslate1.setTranslate(-cx, -cy);
+    svgElement.transform.baseVal.insertItemBefore(doTranslate1, 0);
+
+    // Scale text by appropriate amount.
+    const doScale = svgDocument.querySelector("svg").createSVGTransform();
+    doScale.setScale(scale, scale);
+    svgElement.transform.baseVal.insertItemBefore(doScale, 0);
+
+    // Move text to center of rectangle
+    const doTranslate2 = svgDocument.querySelector("svg").createSVGTransform();
+    doTranslate2.setTranslate(cbx, cby);
+    svgElement.transform.baseVal.insertItemBefore(doTranslate2, 0);
 }
 
 var svgDocument = null;
