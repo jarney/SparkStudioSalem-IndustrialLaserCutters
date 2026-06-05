@@ -101,20 +101,11 @@
     }
   </style>
   </sodipodi:namedview><defs
-     id="defs1"><filter
-       style="color-interpolation-filters:sRGB"
-       id="filter1"
-       inkscape:label="filter1"
-       x="-0.0039058723"
-       y="-0.026295329"
-       width="1.0078117"
-       height="1.0525907"><feColorMatrix
-         id="feColorMatrix1" /><feGaussianBlur
-         stdDeviation="1"
-         id="feGaussianBlur1" /></filter><filter
-       style="color-interpolation-filters:sRGB"
-       inkscape:label="Greyscale"
-       id="filter2"
+     id="defs1">
+	 <filter
+	        style="color-interpolation-filters:sRGB"
+		inkscape:label="Greyscale"
+       id="Grayscale"
        x="0"
        y="0"
        width="1"
@@ -279,7 +270,7 @@
        id="image1"
        x="83.687088"
        y="120.00001"
-       style="display:inline;filter:url(#filter2)"
+       style="display:inline;filter:url(#Grayscale)"
        inkscape:label="TemplateImage"
        template:order="5"
        template:type="image"

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <script src="template.js"></script>
+  <script type="text/javascript" src="qrcode.js"></script>
   <link rel="stylesheet" href="style.css">
   <body>
     <div class="header-container">
@@ -26,22 +27,29 @@
       <div class="tab">
 	<button id="edit-view-button" class="tablinks" onclick="selectTab(event, 'edit-view')">Edit View</button>
 	<button id="preview-view-button" class="tablinks" onclick="selectTab(event, 'preview-view')">Preview</button>
+	<button id="share-button" class="tablinks" onclick="selectTab(event, 'share-view')">Share Design</button>
+	<button id="source-button" class="tablinks" onclick="selectTab(event, 'source-view')">SVG Source</button>
       </div>
       <!-- Tab content -->
       <div id="edit-view" class="tabcontent">
 	<div>
-<!--	  <div id="template-loader" class="loader"></div>-->
 	  <embed id="template" onload="templateContentLoaded()" class="emb" data="Template.svg" type="image/svg+xml"></embed>
 	</div>
       </div>
       <div id="preview-view" class="tabcontent">
-	<button id="download" onclick="downloadClicked()">Download</button>
-	<pre id="preview_svg">
-	</pre>
 	<div>
-<!--	  <div id="preview-loader" class="loader"></div>-->
 	  <embed id="preview" onload="previewContentLoaded()" class="emb" src="empty.svg" type="image/svg+xml"></embed>
 	</div>
+      </div>
+      <div id="share-view" class="tabcontent">
+	<button id="download" onclick="downloadClicked()">Download</button>
+	<pre id="qrcode_data"></pre>
+	<div style="display:none;" id="qrcode_length"></div>
+	<div style="display:none;" id="qrcode"></div>
+	<div style="display:none;" id="qrcode_error">QR Code is too large to share (probably because it contains an image).</div>
+      </div>
+      <div id="source-view" class="tabcontent">
+	<textarea rows="50" id="preview_svg"></textarea>
       </div>
     </div>
   </body>

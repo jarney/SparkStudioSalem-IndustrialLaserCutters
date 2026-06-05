@@ -14,6 +14,8 @@ function removeAllChildren(domElement) {
 
 function globalBBox(element) {
     var rect_bbox = element.getBBox();
+    console.log("local bbox is ");
+    console.log(rect_bbox);
     var consolidated = element.transform.baseVal.consolidate();
     if (!consolidated) {
 	consolidated  = svgDocument.querySelector("svg").createSVGTransform();
@@ -69,9 +71,16 @@ function normalizeText(svgElement, elementName, changeY) {
     
     // We need the bounding boxes to be calculated
     // in terms of global coordinates for both elements.
+    console.log("Doing element " + elementName);
+    console.log("rect");
     var rect_bbox = globalBBox(rectElement);
+    console.log("text");
     var text_bbox = globalBBox(svgElement);
-
+    console.log("rect_bbox:");
+    console.log(rect_bbox);
+    console.log("text_bbox:");
+    console.log(text_bbox);
+    
     // Next, we need to determine how much
     // we should scale by in order to fit exactly
     // inside the given rectangle while keeping
@@ -146,6 +155,11 @@ class TemplateElement {
 	this._formToSVG(htmlElement, svgElement, callback);
 	
     }
+    formToURL() {
+	var htmlElement = document.getElementById(this.id);
+	var svgElement = svgDocument.getElementById(this.id);
+	return this._formToURL(htmlElement, svgElement);
+    }
     svgToForm() {
 	var htmlElement = document.getElementById(this.id);
 	var svgElement = svgDocument.getElementById(this.id);
@@ -165,6 +179,9 @@ class TemplateTextField extends TemplateElement {
 
 	normalizeText(svgElement, this.name, true);
 	callback();
+    }
+    _formToURL(htmlElement, svgElement) {
+	return this.id + "=" + encodeURI(htmlElement.value);
     }
     _filterPreview(svgElement) {
 	var groupElement = svgElement.parentElement;
@@ -203,6 +220,9 @@ class TemplateImage extends TemplateElement {
 	reader.onload = function(event) { fn(event, svgElement, callback); }
 	reader.readAsBinaryString(file);
     }
+    _formToURL(htmlElement, svgElement) {
+	return this.id + "=" + ":abc"; //encodeURI(svgElement.getAttribute("xlink:href"));
+    }
     _filterPreview(svgElement) {
     }
     innerHTML() {
@@ -226,6 +246,9 @@ class TemplateSelect extends TemplateElement {
 	    }
 	}
 	callback();
+    }
+    _formToURL(htmlElement, svgElement) {
+	return this.id + "=" + encodeURI(htmlElement.value);
     }
     _filterPreview(svgElement) {
 	console.log("=============doing preview==========");
@@ -265,6 +288,10 @@ class TemplateHidden extends TemplateElement {
     }
     _formToSVG(htmlElement, svgElement, callback) {
 	callback();
+    }
+    _formToURL(htmlElement, svgElement) {
+	// Hidden elements have nothing to say.
+	return null;
     }
     _filterPreview(svgElement) {
 	if (svgElement) {
@@ -327,6 +354,9 @@ class TemplateTextArea extends TemplateElement {
 	normalizeText(svgElement, this.name, false);
 	callback();
     }
+    _formToURL(htmlElement, svgElement) {
+	return this.id + "=" + encodeURI(htmlElement.value);
+    }
     _filterPreview(svgElement) {
 	var groupElement = svgElement.parentElement;
 	var rectElements = groupElement.getElementsByTagName("rect");
@@ -381,6 +411,12 @@ function templateChanged() {
     template.src = template_id.value;
 
     svgDocumentName = template_id.value;
+
+    var qrcodeElement = document.getElementById("qrcode");
+    var qrcodeErrorElement = document.getElementById("qrcode_error");
+    qrcodeElement.setAttribute("style", "display:none;");
+    qrcodeErrorElement.setAttribute("style", "display:none;");
+    
 }
 
 function selectTab(evt, tabId) {
@@ -548,13 +584,82 @@ function valuesChanged() {
     for (templateElement of field_list) {
 	templateElement.formToSVG(waitForCallbacks);
     }
+
+    // Extract parameters and build a URL.
+    var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + window.location.pathname;
+    var paramlist = []
+    paramlist.push("template=" + encodeURI(svgDocumentName));
+    for (templateElement of field_list) {
+	if (templateElement.isEditable()) {
+	    paramlist.push(templateElement.formToURL());
+	}
+    }
+    paramstring = "?" + paramlist.join("&");
+
+    // Use the URL to encode a QRCode for sharing (if it is small enough)
+    document.getElementById("qrcode_data").textContent = paramlist.join("\n");
+    // In general, we want to limit the query string to 512 bytes:
+    var qrcodeElement = document.getElementById("qrcode");
+    var qrcodeLengthElement = document.getElementById("qrcode_length");
+    var qrcodeErrorElement = document.getElementById("qrcode_error");
+
+    // We limit the URL line to 512 characters.
+    // Pretty generous, but not super large actually.
+    if ((url + paramstring).length > 512) {
+	window.history.replaceState(null, null, url);
+    }
+    else {
+	window.history.replaceState(null, null, url + paramstring);
+    }
+    
+    // Put the parameters onto the QR code (if it fits)
+    url = url  + paramstring;
+    removeAllChildren(qrcodeElement);
+    try {
+	console.log("QRCode data:");
+	console.log(url);
+	new QRCode(qrcodeElement, {
+	    text: url,
+	    correctLevel : QRCode.CorrectLevel.Q
+	});
+
+	qrcodeElement.setAttribute("style", "");
+	qrcodeLengthElement.setAttribute("style", "");
+	qrcodeErrorElement.setAttribute("style", "display:none;");
+	qrcodeLengthElement.textContent = "Length: " + url.length + " bytes";
+    }
+    catch (ex) {
+	console.log("Exception generating QR Code");
+	console.log(ex);
+	qrcodeElement.setAttribute("style", "display:none;");
+	qrcodeLengthElement.setAttribute("style", "display:none;");
+	qrcodeErrorElement.setAttribute("style", "");
+	qrcodeErrorElement.textContent = "QR Code was too large (" + url.length + " bytes) to render.  Download the SVG to share it instead.";
+    }
+    
+    // Extract the SVG and put it in a '<pre>' tag.
+    const serializer = new XMLSerializer();
+    const svgStr = serializer.serializeToString(previewDocument);
+    document.getElementById("preview_svg").textContent = svgStr;
+    
+
 }
 
 function initialize() {
-    var templateListElement = document.getElementById("template");
-    templateListElement.value = "template_cutting_board_vertical.svg";
+    var templateListElement = document.getElementById("template_id");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams);
+
+    if (urlParams.get("template")) {
+	console.log("Loading template from parameters");
+	templateListElement.value = urlParams.get("template");
+    }
+    else {
+	console.log("Loading default template");
+	templateListElement.value = "template_cutting_board_vertical.svg";
+    }
     templateListElement.dispatchEvent(new Event('change'))
     templateChanged();
     document.getElementById("edit-view-button").click();
 }
-
