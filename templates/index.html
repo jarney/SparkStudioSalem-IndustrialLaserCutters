@@ -33,12 +33,14 @@
       <!-- Tab content -->
       <div id="edit-view" class="tabcontent">
 	<div>
-	  <embed id="template" onload="templateContentLoaded()" class="emb" data="Template.svg" type="image/svg+xml"></embed>
+	  <div id="template-loader" class="loader" style=""></div>
+	  <embed id="template" style="" onload="templateContentLoaded()" class="emb" data="Template.svg" type="image/svg+xml"></embed>
 	</div>
       </div>
       <div id="preview-view" class="tabcontent">
 	<div>
-	  <embed id="preview" onload="previewContentLoaded()" class="emb" src="empty.svg" type="image/svg+xml"></embed>
+	  <div id="preview-loader" class="loader" style=""></div>
+	  <embed id="preview" style="" onload="previewContentLoaded()" class="emb" src="empty.svg" type="image/svg+xml"></embed>
 	</div>
       </div>
       <div id="share-view" class="tabcontent">

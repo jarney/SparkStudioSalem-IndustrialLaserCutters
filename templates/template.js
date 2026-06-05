@@ -60,7 +60,7 @@ function globalBBox(element) {
  * size to fit in a given rectangle.  Used by
  * both TextArea and TextField template types.
  */
-function normalizeText(svgElement, elementName, changeY) {
+function normalizeText(svgElement, elementName) {
     var groupElement = svgElement.parentElement;
     var rectElements = groupElement.getElementsByTagName("rect");
     
@@ -80,6 +80,12 @@ function normalizeText(svgElement, elementName, changeY) {
     console.log(rect_bbox);
     console.log("text_bbox:");
     console.log(text_bbox);
+
+    // We're not rendering any text, so we should not try
+    // to center it.  Best to leave it alone for now.
+    if (text_bbox.width <= 0 || text_bbox.height <= 0) {
+	return;
+    }
     
     // Next, we need to determine how much
     // we should scale by in order to fit exactly
@@ -160,10 +166,10 @@ class TemplateElement {
 	var svgElement = svgDocument.getElementById(this.id);
 	return this._formToURL(htmlElement, svgElement);
     }
-    svgToForm() {
+    svgToForm(urlParams) {
 	var htmlElement = document.getElementById(this.id);
 	var svgElement = svgDocument.getElementById(this.id);
-	this._svgToForm(htmlElement, svgElement);
+	this._svgToForm(urlParams, htmlElement, svgElement);
     }
 }
 
@@ -171,13 +177,18 @@ class TemplateTextField extends TemplateElement {
     constructor(id, name, order, type) {
 	super(id, name, order, type, true);
     }
-    _svgToForm(htmlElement, svgElement) {
+    _svgToForm(urlParams, htmlElement, svgElement) {
+	var textAreaValue = urlParams.get(this.getId());
+	if (textAreaValue) {
+	    htmlElement.value = textAreaValue;
+	    return;
+	}
 	htmlElement.value = svgElement.textContent;
     }
     _formToSVG(htmlElement, svgElement, callback) {
 	svgElement.textContent = htmlElement.value;
 
-	normalizeText(svgElement, this.name, true);
+	normalizeText(svgElement, this.name);
 	callback();
     }
     _formToURL(htmlElement, svgElement) {
@@ -191,7 +202,11 @@ class TemplateTextField extends TemplateElement {
 	}
     }
     innerHTML() {
-	return "<input id=\"" + this.getId() + "\" type=\"text\" onchange=\"valuesChanged()\">";
+	var htmlElement = document.createElement("input");
+	htmlElement.setAttribute("id", this.getId());
+	htmlElement.setAttribute("type", "text");
+	htmlElement.setAttribute("onchange", "valuesChanged();");
+	return htmlElement;
     }
 
 }
@@ -206,7 +221,7 @@ class TemplateImage extends TemplateElement {
 	    callback();
 	}
     }
-    _svgToForm(htmlElement, svgElement) {
+    _svgToForm(urlParams, htmlElement, svgElement) {
     }
     
     _formToSVG(htmlElement, svgElement, callback) {
@@ -221,12 +236,17 @@ class TemplateImage extends TemplateElement {
 	reader.readAsBinaryString(file);
     }
     _formToURL(htmlElement, svgElement) {
-	return this.id + "=" + ":abc"; //encodeURI(svgElement.getAttribute("xlink:href"));
+	return this.id + "=" + encodeURI(svgElement.getAttribute("xlink:href"));
     }
     _filterPreview(svgElement) {
     }
     innerHTML() {
-	return "<input id=\"" + this.getId() + "\" type=\"file\" accept=\"image/png, image/jpeg\" onchange=\"valuesChanged()\">";
+	var htmlElement = document.createElement("input");
+	htmlElement.setAttribute("id", this.getId());
+	htmlElement.setAttribute("type", "file");
+	htmlElement.setAttribute("accept", "image/png, image/jpeg");
+	htmlElement.setAttribute("onchange", "valuesChanged();");
+	return htmlElement;
     }
 }
 
@@ -234,7 +254,12 @@ class TemplateSelect extends TemplateElement {
     constructor(id, name, order, type) {
 	super(id, name, order, type, true);
     }
-    _svgToForm(htmlElement, svgElement) {
+    _svgToForm(urlParams, htmlElement, svgElement) {
+	var selectValue = urlParams.get(this.getId());
+	if (selectValue) {
+	    htmlElement.value = selectValue;
+	    return;
+	}
     }
     _formToSVG(htmlElement, svgElement, callback) {
 	for (var child of svgElement.children) {
@@ -260,23 +285,29 @@ class TemplateSelect extends TemplateElement {
 	console.log("=============done preview==========");
     }
     innerHTML() {
+	var htmlElement = document.createElement("select");
 	var svgElement = svgDocument.getElementById(this.getId());
-
-	inner = "";
-	inner += "<select id=\"" + this.getId() + "\" name=\"" + this.getName() + "\" onchange=\"valuesChanged()\">";
+	
+	htmlElement.setAttribute("id", this.getId());
+	htmlElement.setAttribute("name", this.getName());
+	htmlElement.setAttribute("onchange", "valuesChanged();");
 	var i = 0;
 	for (var child of svgElement.children) {
-	    if (i != 0) {
-		child.setAttribute("style", "display:none");
+	    var optionElement = document.createElement("option");
+	    optionElement.setAttribute("value", child.id);
+	    optionElement.textContent = child.getAttribute("inkscape:label");
+	    if (i == 0) {
+		child.setAttribute("style", "display:inline;");
+		console.log("Selecting " + child.id);
+		htmlElement.setAttribute("value", "child.id");
 	    }
 	    else {
-		child.setAttribute("style", "display:inline");
+		child.setAttribute("style", "display:none;");
 	    }
-	    inner += "<option value=\"" + child.id + "\">" + child.getAttribute("inkscape:label") + "</option>";
+	    htmlElement.appendChild(optionElement);
 	    i++;
 	}
-	inner += "</select>"
-	return inner;
+	return htmlElement;
     }
 }
 
@@ -284,7 +315,7 @@ class TemplateHidden extends TemplateElement {
     constructor(id, name, order, type) {
 	super(id, name, order, type, false);
     }
-    _svgToForm(htmlElement, svgElement) {
+    _svgToForm(urlParams, htmlElement, svgElement) {
     }
     _formToSVG(htmlElement, svgElement, callback) {
 	callback();
@@ -302,7 +333,7 @@ class TemplateHidden extends TemplateElement {
 	}
     }
     innerHTML() {
-	return "";
+	return null;
     }
 }
 
@@ -310,7 +341,14 @@ class TemplateTextArea extends TemplateElement {
     constructor(id, name, order, type) {
 	super(id, name, order, type, true);
     }
-    _svgToForm(htmlElement, svgElement) {
+    _svgToForm(urlParams, htmlElement, svgElement) {
+	// Read it from the URL if it's there.
+	var textAreaValue = urlParams.get(this.getId());
+	if (textAreaValue) {
+	    htmlElement.value = textAreaValue;
+	    return;
+	}
+	// Otherwise, default to whatever's in the URL.
 	var tspan_elements = svgElement.getElementsByTagName("tspan");
 	var text_list = [];
 	for (var tspan_element of tspan_elements) {
@@ -351,7 +389,7 @@ class TemplateTextArea extends TemplateElement {
 	    svgElement.appendChild(newTSpan);
 	    i++;
 	}
-	normalizeText(svgElement, this.name, false);
+	normalizeText(svgElement, this.name);
 	callback();
     }
     _formToURL(htmlElement, svgElement) {
@@ -365,7 +403,12 @@ class TemplateTextArea extends TemplateElement {
 	}
     }
     innerHTML() {
-	return "<textarea rows=\"4\" id=\"" + this.getId() + "\" type=\"text\" onchange=\"valuesChanged()\"></textarea>";
+	var textareaElement = document.createElement("textarea");
+	textareaElement.setAttribute("rows", "4");
+	textareaElement.setAttribute("id", this.getId());
+	textareaElement.setAttribute("type", "text");
+	textareaElement.setAttribute("onchange", "valuesChanged()");
+	return textareaElement;
     }
 }
 
@@ -439,7 +482,8 @@ function selectTab(evt, tabId) {
     document.getElementById(tabId).style.display = "block";
     evt.currentTarget.className += " active";
     
-    copyPreviewSVG();
+    console.log("Tab selected");
+    processResults();
 } 
 
 function downloadClicked() {
@@ -467,15 +511,16 @@ function downloadClicked() {
 }
 
 function previewContentLoaded() {
-//    document.getElementById("preview-loader").setAttribute("style", "display: none");
+    document.getElementById("preview-loader").setAttribute("style", "display: none");
     document.getElementById("preview").setAttribute("style", "");
-    copyPreviewSVG();    
+    console.log("preview content loaded");
+    processResults();    
 }
 
 function templateContentLoaded() {
-//    document.getElementById("template-loader").setAttribute("style", "display: none");
+    document.getElementById("template-loader").setAttribute("style", "display:none;");
     document.getElementById("template").setAttribute("style", "");
-
+    
     var svgElement = document.getElementById("template");
     svgDocument = getSubDocument(svgElement);
 
@@ -485,7 +530,7 @@ function templateContentLoaded() {
     );
 
     field_list = [];
-    for (fieldElement of fieldElements) {
+    for (var fieldElement of fieldElements) {
 	if (!fieldElement.hasAttribute("template:type")) {
 	    console.log("No such attribute");
 	    continue;
@@ -503,43 +548,54 @@ function templateContentLoaded() {
 	return a.getOrder() - b.getOrder()
     });
 
-// Scale the SVG to fit
-// None of this is needed, we can do it all with the emb CSS class.
-//    var viewBox = svgDocument.rootElement.getAttribute("viewBox").split(" ");
-//    var svgWidth = parseInt(viewBox[2]);
-//    var svgHeight = parseInt(viewBox[3]);
-//    var scaleFactor = (window.innerWidth - 20) / svgWidth;
-//    console.log("Scale factor should be " + scaleFactor);
-//    var bbox = svgDocument.rootElement.getBBox();
-//    svgDocument.rootElement.setAttribute("width", bbox.width*scaleFactor);
-//    svgDocument.rootElement.setAttribute("height", bbox.height*scaleFactor);
-//    svgDocument.rootElement.setAttribute("viewBox", "0 0 " + bbox.width*scaleFactor + " " + bbox.height*scaleFactor);
-//    console.log("Resized SVG is " + (bbox.width*scaleFactor) + "," + (bbox.height*scaleFactor));
-    
-    inner = "";
+    var fieldElement = document.getElementById("field-container");
+    removeAllChildren(fieldElement);
     for (templateElement of field_list) {
 	if (templateElement.isEditable()) {
-	    inner += "<div class=\"row\">";
-	    inner += "<div class=\"col\">";
-	    inner += "<span>" + templateElement.getName() + "</span>";
-	    inner += "</div>";
-	    inner += "<div class=\"col\">";
-	    inner += templateElement.innerHTML();
-	    inner += "</div>";
-	    inner += "</div>";
+	    editControlElement = templateElement.innerHTML();
+	    if (!editControlElement) continue;
+	    
+	    var rowDiv = document.createElement("div");
+	    rowDiv.setAttribute("class", "row");
+	    
+	    var titleDiv = document.createElement("div");
+	    titleDiv.setAttribute("class", "col");
+	    var span = document.createElement("span");
+	    span.textContent = templateElement.getName();
+	    titleDiv.appendChild(span);
+	    
+	    rowDiv.appendChild(titleDiv);
+	    
+	    var editControlDiv = document.createElement("div");
+	    editControlDiv.setAttribute("class", "col");
+	    
+	    editControlDiv.appendChild(editControlElement);
+	    rowDiv.appendChild(editControlDiv);
+	    
+	    fieldElement.appendChild(rowDiv);
 	}
-
     }
-    fieldElement = document.getElementById("field-container");
-    fieldElement.innerHTML = inner;
-
+    const urlParams = new URLSearchParams(window.location.search);
     for (templateElement of field_list) {
-	templateElement.svgToForm();
+	templateElement.svgToForm(urlParams);
+	templateElement.formToSVG(function() {return;});
     }
-    copyPreviewSVG();    
+    console.log("template content loaded");
+    processResults();    
+}
+
+function processResults() {
+    copyPreviewSVG();
+    generateQRCodeAndURL();
 }
 
 function copyPreviewSVG() {
+    // If we haven't loaded our template
+    // yet, then we shouldn't mess with the preview.
+    if (field_list.length == 0) {
+	return;
+    }
+    
     var svgElement = document.getElementById("template");
     svgDocument = getSubDocument(svgElement);
     if (!svgDocument) {
@@ -551,7 +607,7 @@ function copyPreviewSVG() {
     if (!previewDocument) {
 	return;
     }
-
+    
     removeAllChildren(previewDocument.documentElement);
     
     console.log("outerhtml");
@@ -569,22 +625,20 @@ function copyPreviewSVG() {
     previewDocument.rootElement.setAttribute("viewBox", "0 0 " + svgWidth + " " + svgHeight);
     previewDocument.rootElement.setAttribute("width", svgWidth);
     previewDocument.rootElement.setAttribute("height", svgHeight);
+
+    // Extract the SVG and put it in a '<pre>' tag.
+    const serializer = new XMLSerializer();
+    const svgStr = serializer.serializeToString(previewDocument);
+    document.getElementById("preview_svg").textContent = svgStr;
 }
 
-function valuesChanged() {
-    if (svgDocument == null) return;
-
-    var callbackCount = 0;
-    function waitForCallbacks() {
-	if (callbackCount == field_list.length-1) {
-	    copyPreviewSVG();
-	}
-	callbackCount++;
+function generateQRCodeAndURL() {
+    // If we haven't loaded our template
+    // yet, then we shouldn't mess with the QR code and URL stuff yet.
+    if (field_list.length == 0) {
+	return;
     }
-    for (templateElement of field_list) {
-	templateElement.formToSVG(waitForCallbacks);
-    }
-
+    
     // Extract parameters and build a URL.
     var url = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + window.location.pathname;
     var paramlist = []
@@ -637,12 +691,22 @@ function valuesChanged() {
 	qrcodeErrorElement.textContent = "QR Code was too large (" + url.length + " bytes) to render.  Download the SVG to share it instead.";
     }
     
-    // Extract the SVG and put it in a '<pre>' tag.
-    const serializer = new XMLSerializer();
-    const svgStr = serializer.serializeToString(previewDocument);
-    document.getElementById("preview_svg").textContent = svgStr;
-    
+}
 
+function valuesChanged() {
+    if (svgDocument == null) return;
+
+    var callbackCount = 0;
+    function waitForCallbacks() {
+	if (callbackCount == field_list.length-1) {
+	    console.log("Values changed");
+	    processResults();
+	}
+	callbackCount++;
+    }
+    for (templateElement of field_list) {
+	templateElement.formToSVG(waitForCallbacks);
+    }
 }
 
 function initialize() {
@@ -659,7 +723,7 @@ function initialize() {
 	console.log("Loading default template");
 	templateListElement.value = "template_cutting_board_vertical.svg";
     }
-    templateListElement.dispatchEvent(new Event('change'))
+//    templateListElement.dispatchEvent(new Event('change'))
     templateChanged();
     document.getElementById("edit-view-button").click();
 }
