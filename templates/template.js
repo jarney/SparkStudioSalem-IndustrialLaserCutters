@@ -635,6 +635,12 @@ function templateContentLoaded() {
 }
 
 function processResults() {
+    var svgElement = document.getElementById("template");
+    svgDocument = getSubDocument(svgElement);
+    if (!svgDocument) {
+	return;
+    }
+    
     copyPreviewSVG();
     generateQRCodeAndURL();
 }
@@ -643,12 +649,6 @@ function copyPreviewSVG() {
     // If we haven't loaded our template
     // yet, then we shouldn't mess with the preview.
     if (field_list.length == 0) {
-	return;
-    }
-    
-    var svgElement = document.getElementById("template");
-    svgDocument = getSubDocument(svgElement);
-    if (!svgDocument) {
 	return;
     }
     
