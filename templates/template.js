@@ -104,8 +104,8 @@ function normalizeText(svgElement, elementName) {
     var oldViewClass = editView.className;
     editView.className = "tab-content";
     var shareView = document.getElementById("share-view");
-    shareView.className = "tab-content-hidden";
     var oldShareViewClass = shareView.className;
+    shareView.className = "tab-content-hidden";
 
     // We need the bounding boxes to be calculated
     // in terms of global coordinates for both elements.
