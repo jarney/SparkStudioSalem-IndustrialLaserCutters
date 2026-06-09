@@ -24,7 +24,6 @@ function findHiddenElements(domElement, hiddenElements) {
 
 function removeAllHidden(domElement) {
     var toremove = []
-    console.log("Removing all hidden elements");
     findHiddenElements(domElement, toremove);
     for (child of toremove) {
 	child.obj.removeChild(child.child);
@@ -242,11 +241,9 @@ class TemplateTextField extends TemplateElement {
     }
     _filterPreview(htmlElement, svgElement) {
 	var groupElement = svgElement.parentElement;
-	console.log("Removing " + this.id);
 	var rectElements = groupElement.getElementsByTagName("rect");
 	for (var rect of rectElements) {
 	    if (rect.parent == groupElement) {
-		console.log("  removing child " + rect.id);
 		groupElement.removeChild(rect);
 	    }
 	}
@@ -767,21 +764,16 @@ function initialize() {
     var templateListElement = document.getElementById("template_id");
 
     initialized = true;
-    console.log("Window search is");
-    console.log(window.location.search);
     const urlParams = new URLSearchParams(window.location.search);
     
-    console.log("Template parameter is " + urlParams.get("template"));
     if (urlParams.get("template")) {
 	templateListElement.value = urlParams.get("template");
     }
     else {
 	if (templateListElement.children.length > 0) {
 	    templateListElement.value = templateListElement.children[0].value;
-	    console.log("Defaulting list element");
 	}
 	else {
-	    console.log("defaulting template to something dumb.");
 	    templateListElement.value = "TinyFoxtato.svg";
 	}
     }
