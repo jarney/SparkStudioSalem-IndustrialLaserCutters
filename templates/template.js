@@ -3,6 +3,7 @@ window.addEventListener("load", initialize, false);
 var svgDocument = null;
 var svgDocumentName = "";
 var field_list = []
+var initialized = false;
 
 function baseURLFromWindow() {
     return window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + window.location.pathname;
@@ -635,6 +636,7 @@ function templateContentLoaded() {
 }
 
 function processResults() {
+    if (!initialized) return;
     var svgElement = document.getElementById("template");
     svgDocument = getSubDocument(svgElement);
     if (!svgDocument) {
@@ -763,9 +765,13 @@ function valuesChanged() {
 
 function initialize() {
     var templateListElement = document.getElementById("template_id");
-    
+
+    initialized = true;
+    console.log("Window search is");
+    console.log(window.location.search);
     const urlParams = new URLSearchParams(window.location.search);
     
+    console.log("Template parameter is " + urlParams.get("template"));
     if (urlParams.get("template")) {
 	templateListElement.value = urlParams.get("template");
     }
@@ -775,6 +781,7 @@ function initialize() {
 	    console.log("Defaulting list element");
 	}
 	else {
+	    console.log("defaulting template to something dumb.");
 	    templateListElement.value = "TinyFoxtato.svg";
 	}
     }
