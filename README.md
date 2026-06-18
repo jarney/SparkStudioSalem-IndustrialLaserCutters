@@ -8,11 +8,13 @@ information such as wiring diagrams.
 # Training Presentations
 If you want to learn how to use the machines, there are several
 presentations aimed at getting people started and certified:
-* [Introduction Training](Training-GeneralPublic.pdf): This course is intended for the general public
+* [Introduction Training](Training-GeneralPublic.pdf) and [handouts](Training-GeneralPublic-Handout.pdf): This course is intended for the general public
   to use the machines UNDER SUPERVISION of authorized users.  The nominal cost
   for this training is a $20 donation to the club.  You will learn to use the
   machine for basic cutting and engraving operations.  This is an introduction, so you
-  will learn how to use the machines, but you will not yet be an expert.
+  will learn how to use the machines, but you will not yet be an expert.  This course makes use
+  of some [templates](templates/svg) and a [template customization tool](https://jarney.github.io/spark/laser-cutters-6090/svg-templates/) to create
+  designs for cutting during the class.
 
 * [Authorized User Training](Training-AuthorizedUsers.pdf): This course is intended for paying members.  You will
   increase your knowledge and the focus is on ensuring safe operation and reacting to emergency
@@ -35,7 +37,7 @@ This section covers the policies and procedures for operating the machines.
 * These [Signs](signs.pdf) should be placed on the machines in event of malfunction to alert
   other users and Spark Studio board members of malfunctions.
 
-If you wish th revise the policies, please edit the corresponding
+If you wish to revise the policies, please edit the corresponding
 OpenOffice (.odt) files and review with the Spark Studio Board.
 Once approved, a pull-request can be sent to request that the official
 copies of the policies be updated.  Note when revising policies, the
@@ -73,7 +75,7 @@ authored in KiCad and future changes should be proposed and updated
 using this format, reviewed, and implemented with the consent of
 a Certifier or the Spark Studio Board.
 
-# Modified Parts
+# Modified Parts and accessories
 
 Some parts have been designed and 3d printed in an effort to
 improve the safety of the equipment.  These include:
@@ -86,7 +88,8 @@ improve the safety of the equipment.  These include:
 * Holder for reed switch protecting the laser from firing with
   the door open.
 
-The CAD for these files are maintained in this [FreeCAD file](LaserCutterParts.FCStd).
+The CAD for these files are maintained in this [FreeCAD file](LaserCutterParts.FCStd)
+and printable versions can be found in the [STL](stl/) and [3MF](3mf/) directories.
 
 # Alignment Procedures
 
